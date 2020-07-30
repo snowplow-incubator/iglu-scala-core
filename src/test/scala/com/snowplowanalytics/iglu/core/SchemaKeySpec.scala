@@ -26,6 +26,7 @@ class SchemaKeySpec extends Specification {
     fail to parse with invalid name $e5
     fail to parse with missing ADDITION $e8
     fail to parse partial schema key $e9
+    fail to parse if key is URL-encoded $e10
 
   Specification for SchemaKey
     sort entities with SchemaKey $e6
@@ -53,6 +54,11 @@ class SchemaKeySpec extends Specification {
         SchemaVer.Full(2, 10, 32)
       )
     )
+  }
+
+  def e10 = {
+    val uri = "iglu%3Auk.edu.acme.sub-division%2Fsecond-event_complex%2Fjsonschema%2F2-10-32"
+    SchemaKey.fromUri(uri) must beLeft
   }
 
   def e3 = {
